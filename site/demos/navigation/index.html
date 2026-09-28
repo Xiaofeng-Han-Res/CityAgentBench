@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CityAgentBench · Map & navigation</title><link rel="stylesheet" href="style.css"></head><body>
+<main class="explorer">
+ <aside class="sidebar">
+  <header><p class="eyebrow">CITYAGENTBENCH / INTERACTIVE</p><h1 data-t="title">Map & navigation</h1></header>
+  <div class="mode-switch" role="group" aria-label="Map mode"><button id="scene-mode" aria-pressed="true" data-t="scene">City map</button><button id="demo-mode" aria-pressed="false" data-t="demo">Navigation demo</button></div>
+  <p id="mode-note" class="note"></p>
+  <div id="browse"><label for="search" data-t="searchLabel">Find a place</label><input id="search" type="search" placeholder="Try “bridge” or “Cocoon”" autocomplete="off"><div id="results"></div><div id="pagination"><button id="prev" data-t="prev">← Previous</button><span id="page"></span><button id="next" data-t="next">Next →</button></div></div>
+  <section id="detail" hidden><h2 id="place-title"></h2><p id="place-note"></p><p id="place-id" class="source-id"></p><button id="close-detail" class="text-button" data-t="closePlace">Close place details</button></section>
+  <section id="demo-controls" hidden><h2 data-t="routeTitle">A route that adapts</h2><p data-t="routeIntro">Plan a walk, replay position updates, then test a detour.</p><button id="plan-route" class="primary" data-t="plan">Plan route</button><div id="route-info" aria-live="polite"></div><button id="start-nav" class="primary" hidden data-t="start">Start navigation</button><div id="nav-actions" hidden><button id="walk" data-t="walk">Replay walk</button><button id="deviate" data-t="deviate">Simulate deviation</button><button id="stop" data-t="stop">Stop navigation</button></div><button id="reset-demo" class="text-button" data-t="reset">Reset demo</button><p class="note" data-t="simulation">Synthetic network · Simulated positions · No agent movement</p></section>
+ </aside>
+ <section class="map-stage" aria-label="Interactive map">
+  <div id="map" tabindex="0" aria-label="Drag to pan; scroll, pinch or use + and - to zoom; arrow keys to pan"></div>
+  <div class="map-top"><div id="regions"><button data-region="park" data-t="park">Talent Park</button><button data-region="spring" data-t="spring">Chunsun</button><button data-region="cocoon" data-t="cocoon">Cocoon</button></div><span id="mode-badge"></span></div>
+  <div class="map-tools"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="fit" data-t="fit">Fit</button><button id="export-svg" data-t="export">SVG ↓</button></div>
+  <div id="navigation" hidden aria-live="polite"><strong id="instruction"></strong><span id="remaining"></span><small id="nav-status"></small></div>
+  <div class="map-bottom"><span id="map-legend"></span><span id="zoom-readout"></span></div>
+  <div id="status" role="status" data-t="loading">Loading local map…</div>
+ </section>
+</main><script type="module" src="app.mjs"></script></body></html>

@@ -1,0 +1,11 @@
+{
+  "tag": "website-assets-20260928",
+  "assets": [
+    {
+      "name": "city_overview_12288x18432.png",
+      "site_path": "demos/city-map/city_overview_12288x18432.png",
+      "bytes": 202836375,
+      "sha256": "3649681dbcdf056a9bab9124a958fa7df4373a78b8de27d8d4cbb1d85b95982b"
+    }
+  ]
+}

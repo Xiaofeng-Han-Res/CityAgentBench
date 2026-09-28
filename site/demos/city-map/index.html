@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>春笋 · 春蚕 · 人才公园 — 城市俯视图</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="viewer" aria-label="可缩放、拖动的城市俯视图">
+    <canvas id="map" tabindex="0" aria-label="滚轮放大缩小，按住拖动；加减键缩放，方向键移动，Home恢复全图"></canvas>
+    <header><div><span class="eyebrow">城市观察 / CITY OVERVIEW</span><h1>春笋 · 春蚕 · 人才公园</h1><p id="status">正在读取本地俯视图…</p></div><span class="edition">R38v3</span></header>
+    <div class="north" title="项目坐标 +Y 为北，+X 为东"><span>↑</span><b>北 N</b></div>
+    <nav aria-label="地图操作">
+      <button id="zoom-in" title="放大" aria-label="放大">+</button>
+      <button id="zoom-out" title="缩小" aria-label="缩小">−</button>
+      <i></i><button id="fit">全图</button><button id="actual">实际像素</button>
+    </nav>
+    <aside class="downloads" aria-label="下载原图与离线包" hidden>
+      <a id="download-png" download hidden>完整 PNG</a>
+      <a id="download-zip" download hidden>下载离线 ZIP</a>
+    </aside>
+    <div id="loading" role="status">首次预览正在制作；完成后重新打开即可查看。</div>
+    <footer><span id="zoom">—</span><span class="help">滚轮缩放 · 按住拖动 · 双击放大</span><span id="scale"></span></footer>
+  </main>
+  <script src="language.js"></script><script src="manifest.js"></script><script src="viewer.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+name: Deploy project page
+
+# Explicit publication: run this workflow after uploading the release asset
+# and selecting GitHub Actions in Settings > Pages.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/configure-pages@v5
+      - name: Download the original atlas from this repository's release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p release-assets
+          gh release download website-assets-20260928 --repo "$GITHUB_REPOSITORY" --pattern 'city_overview_12288x18432.png' --dir release-assets
+      - name: Verify and assemble the complete site
+        run: python3 -B scripts/assemble_site.py --assets release-assets --output _site
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

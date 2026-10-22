@@ -1,0 +1,22 @@
+name: Development task
+description: Propose bounded implementation, scene or dataset work.
+title: "[Development] "
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Problem and proposed outcome
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance evidence
+      description: State how a reviewer can verify the result, including scene/protocol versions.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and coordination
+      description: Note runtime ownership, scene dependencies and related issues.

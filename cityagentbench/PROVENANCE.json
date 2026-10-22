@@ -1,0 +1,11 @@
+{
+  "module": "scoring.py",
+  "origin": "deepseek_motion_pilot_20261010_v1/scripts/scoring.py",
+  "source_sha256": "9c82fe929ad23d36cd7aa7d9e69ffee69eba9cb3abce95d417315da24dfa74ed",
+  "copied_without_changes": false,
+  "status": "development_reference_not_official_benchmark",
+  "snapshot_date": "2026-10-23",
+  "changes": [
+    "Removed trailing blank line; executable code unchanged."
+  ]
+}

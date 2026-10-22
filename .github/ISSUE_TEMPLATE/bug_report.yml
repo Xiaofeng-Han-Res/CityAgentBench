@@ -1,0 +1,23 @@
+name: Environment or evaluation bug
+description: Report a reproducible scene, runtime or scoring issue.
+title: "[Bug] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Code, scene, data and protocol versions
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction and evidence
+      description: Include a task ID and redacted logs or native views. Never attach credentials or hidden answers.
+    validations:
+      required: true

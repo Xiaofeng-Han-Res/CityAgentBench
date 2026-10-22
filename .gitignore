@@ -1,3 +1,9 @@
 _site/
 release-assets/
 __pycache__/
+.venv/
+*.pyc
+downloads/
+runs/
+.env
+.env.*

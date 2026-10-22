@@ -1,34 +1,97 @@
-# CityAgentBench project page
+# CityAgentBench
 
-English-first research project page with an EN/ZH switch, three videos, two capability figures, a vector navigation demo, and a zoomable 12,288 × 18,432 city atlas. CityAgentBench is a working title. The research and benchmark readiness statements are preserved from the local page.
+**Urban reconstruction and embodied-agent evaluation in Shenzhen.**
 
-## Deployment
+[Project page](https://xiaofeng-han-res.github.io/CityAgentBench/) ·
+[中文介绍](docs/README.zh-CN.md) · [Evaluation](docs/evaluation.md) ·
+[Data and scene downloads](docs/resources.md) · [Contributing](CONTRIBUTING.md)
 
-Static sources and a GitHub Actions deployment workflow for the project page. The repository is `Xiaofeng-Han-Res/CityAgentBench`.
+![Reconstructed Shenzhen urban scene](site/assets/hero.webp)
 
-1. Push the contents of this directory to the target repository. Do not add the sibling `release-assets/` directory to Git.
-2. Create a GitHub Release with tag `website-assets-20260928`. Attach `city_overview_12288x18432.png` from the sibling `release-assets/` directory. Its required hash is in `release-assets.json`.
-3. In **Settings → Pages → Build and deployment**, select **GitHub Actions**.
-4. In **Actions → Deploy project page**, choose **Run workflow** on the default branch. The workflow downloads the original atlas, verifies its SHA-256, and publishes the complete site. A missing or changed asset fails the build before deployment.
-5. Open the URL reported by the deployment. Both a repository subpath and an account-level Pages domain are supported through relative asset paths.
+CityAgentBench studies how multimodal agents understand and move through a reconstructed
+city. The project connects geospatial data and Blender scene construction, an Unreal Engine
+environment, a public map, and tasks that require observation, action and verifiable arrival.
+Its working area includes Shenzhen Talent Park, the Chunsun commercial district and the
+Chuncan sports venue and surrounding streets. CityAgentBench remains a working project name.
 
-Publishing is manually triggered. Later changes are published by running the same workflow after pushing updates.
+This repository is the entry point for understanding the project and contributing to its
+development. The project website presents scenes and demonstrations; Hugging Face carries
+versioned data and larger scene resources. The public runtime release is being prepared.
 
-## Large image handling
+## What is available
 
-GitHub blocks individual Git files above 100 MiB. The original atlas is approximately 193 MiB, so it is stored as a Release asset. The 1,167 image-pyramid tiles stay in `site/`. The build places the full original PNG back at its existing path, preserving the viewer's original-image download and keeping all displayed media on the site's own origin. No Git LFS or external map service is needed.
+| Component | Available now | Status |
+| --- | --- | --- |
+| Project website | Bilingual overview, native videos, city atlas, map/navigation demonstration | Published; website source in `site/` |
+| Historical task preview | 35 English L1 prompts and 35 original 1920×1080 images | Development preview; no official test split or public answers |
+| Evaluation documentation | Actions, observations, task review, scoring, experiment records | Describes the current development protocol |
+| Reference answer/arrival scorer | Dependency-free Python module and focused tests | Extracted from the development pilot; not a released benchmark |
+| Portable UE environment and agent runner | Release work tracked in the roadmap | Not yet distributed as an install-and-run package |
+| Full city scenes | Resource card and intended artifact organization | Scene binaries and dependencies pending packaging/acceptance |
 
-`site/` alone is a source tree; use the assembly command below to include the original-image download before previewing or deploying.
+The 35-image preview preserves the **September 28 static, single-image condition**. Current
+L1 development permits movement; L2 requires actual arrival. These are separate protocol
+versions and their scores must not be pooled. The preview is not the current saved193 test set.
+
+## Explore and start contributing
+
+1. Visit the [project page](https://xiaofeng-han-res.github.io/CityAgentBench/) for the scene,
+   acquisition examples and interactive map. The browser map demo does not drive the UE agent.
+2. Read [architecture](docs/architecture.md) and [evaluation](docs/evaluation.md).
+3. Download the [historical task preview](https://huggingface.co/datasets/haxiaofeng/CityAgentBench-tasks).
+4. Pick a bounded task from the [roadmap](docs/roadmap.md), discuss its acceptance criteria
+   in an issue, then contribute a branch and pull request.
+
+You can check the reference scoring code without UE or a GPU:
 
 ```bash
-python3 -B scripts/assemble_site.py --assets ../release-assets --output _site
-python3 -B -m http.server 8000 --directory _site
+git clone https://github.com/Xiaofeng-Han-Res/CityAgentBench.git
+cd CityAgentBench
+python3 -B -m unittest discover -s tests -v
 ```
 
-For the original project workstation, use its required data-storage runtime wrapper when starting a server or browser.
+Python 3.10+ is sufficient for these repository checks. This command tests the reference
+scorer; it does not launch an agent or reproduce a benchmark score.
 
-## Contents
+## How evaluation works
 
-Only the selected website assets are included. Raw acquisition datasets, Blender/UE projects, evaluation private answers, QA screenshots, logs, and workstation credentials are not part of this repository. This package does not establish an open-source or dataset license.
+```text
+Pinned scene + reviewed task + fixed budget and scoring
+    → verified initial observation
+    → agent command → native movement/map feedback → new observation
+    → answer or stop → arrival/answer checks → per-task result and trajectory
+```
 
-Reference: [GitHub Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), [GitHub large-file limits](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github).
+L1 covers object identification, target localization, sign information, local spatial
+relations, counting and visible state. L2 covers finding and reaching a destination,
+checking information at arrival, and observing along a route. Higher levels are research
+designs. The six-level website taxonomy and later five-level authoring experiments are
+versioned designs, not interchangeable released benchmarks.
+
+See [the full evaluation guide](docs/evaluation.md) for input boundaries, scoring,
+technical failures and the work needed before an independent user can run the environment.
+Current progress and pilot limitations are in [project status](docs/status.md).
+
+## Repository map
+
+```text
+site/                   Existing public project website
+docs/                   Architecture, evaluation, resources, status and roadmap
+cityagentbench/         Reference scoring logic
+tests/                  Scoring regression checks
+scripts/                Website assembly and public dataset verification
+.github/                Contribution templates and automated checks
+CONTRIBUTING.md          Collaboration workflow
+```
+
+Scene meshes, textures, UE binaries, task images and future neural checkpoints are distributed
+separately; use [the resource guide](docs/resources.md) to select a matching release.
+Website maintenance instructions are in [docs/website.md](docs/website.md).
+
+## Attribution and reuse
+
+The presentation and evaluation documentation structure was informed by
+[UrbanGround](https://github.com/UrbanGround/UrbanGround). This project has its own scenes,
+tasks and development protocol; it does not claim UrbanGround's capabilities or results.
+No project-wide code or dataset license has yet been selected. Third-party components retain
+their original terms. See [attribution and licensing status](docs/attribution.md).
